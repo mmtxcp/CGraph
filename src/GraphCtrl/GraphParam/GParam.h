@@ -13,7 +13,7 @@
 
 CGRAPH_NAMESPACE_BEGIN
 
-class GParam : public GParamObject {
+class GParam :virtual public GParamObject {
 public:
 #if __cplusplus >= 201703L
     std::shared_mutex _param_shared_lock_;    // 用于参数互斥的锁信息

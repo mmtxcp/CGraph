@@ -377,6 +377,14 @@ private:
      */
     virtual CStatus checkSuitable();
 
+    /**
+     * 被触发的次数信息
+     * @return
+     */
+    CULong getTriggerTimes()
+    {
+        return trigger_times_;
+    }
 private:
     /** 状态相关信息 */
     CBool done_ { false };                                                    // 判定被执行结束
