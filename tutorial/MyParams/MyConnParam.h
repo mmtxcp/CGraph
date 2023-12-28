@@ -32,7 +32,7 @@ struct MyConnParam : public CGraph::GPassedParam {
         port_ = ptr->port_;
     }
 
-    std::string ip_ {"0.0.0.0" };
+    std::string ip_ ="0.0.0.0" ;
     short port_ { 0 };
 };
 

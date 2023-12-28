@@ -43,7 +43,7 @@ void tutorial_threadpool_2(UThreadPoolPtr tp) {
 
     /** 添加一个不耗时的任务 */
     int i = 1, j = 2, k = 3;
-    auto hcg = [] { CGRAPH_ECHO("Hello, CGraph."); };
+    auto hcg = [] { CGRAPH_ECHO("Hello, CGraph.");  };
     taskGroup.addTask(hcg);
 
     /** 添加一个耗时为1000ms的任务 */
@@ -57,7 +57,7 @@ void tutorial_threadpool_2(UThreadPoolPtr tp) {
         int result = i - j + k;
         CGRAPH_SLEEP_MILLISECOND(2000)
         CGRAPH_ECHO("sleep for 2 second, [%d] - [%d] + [%d] = [%d], run success.", i, j, k, result);
-        return result;    // submit接口，不会对线程函数返回值进行判断。如果需要判断，考虑commit方式
+        // submit接口，不会对线程函数返回值进行判断。如果需要判断，考虑commit方式
     });
 
     /** 如果添加耗时3000ms的任务，则整体执行失败 */
@@ -98,7 +98,7 @@ void tutorial_threadpool_3(UThreadPoolPtr tp) {
     const int size = 100;
     CGRAPH_ECHO("thread pool task submit version : ");
     for (int i = 0; i < size; i++) {
-        tp->submit([i] { std::cout << i << " "; });    // 可以看到，submit版本是有序执行的。如果需要想要无序执行，可以通过创建taskGroup的方式进行，或者使用commit方法
+        tp->submit([i] { std::cout << i << " ";  });    // 可以看到，submit版本是有序执行的。如果需要想要无序执行，可以通过创建taskGroup的方式进行，或者使用commit方法
     }
     CGRAPH_SLEEP_SECOND(1)    // 等待上面函数执行完毕，以便于观察结果。无实际意义
     std::cout << "\r\n";
@@ -106,7 +106,7 @@ void tutorial_threadpool_3(UThreadPoolPtr tp) {
     CGRAPH_ECHO("thread pool task group submit version : ");
     UTaskGroup taskGroup;
     for (int i = 0; i < size; i++) {
-        taskGroup.addTask([i] { std::cout << i << " "; });    // 将任务放到一个taskGroup中，并发执行。执行的结果是无序的
+        taskGroup.addTask([i] { std::cout << i << " ";  });    // 将任务放到一个taskGroup中，并发执行。执行的结果是无序的
     }
     tp->submit(taskGroup);
     CGRAPH_SLEEP_SECOND(1)
@@ -114,7 +114,7 @@ void tutorial_threadpool_3(UThreadPoolPtr tp) {
 
     CGRAPH_ECHO("thread pool task commit version : ");
     for (int i = 0; i < size; i++) {
-        tp->commit([i] { std::cout << i << " "; });    // commit版本，是无序执行的
+        tp->commit([i] { std::cout << i << " "; return true; });    // commit版本，是无序执行的
     }
     CGRAPH_SLEEP_SECOND(1)
     std::cout << "\r\n";

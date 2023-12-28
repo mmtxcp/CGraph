@@ -34,12 +34,15 @@ void tutorial_complex() {
     status += pipeline->registerGElement<GCluster>(&b_cluster, {}, "clusterB", 1);
     status += pipeline->registerGElement<MyNode1>(&c, {a, b_cluster}, "nodeC", 1);
     status += pipeline->registerGElement<GRegion>(&d_region, {a, b_cluster}, "regionD", 2);    // 将名为regionD，依赖{a,b_cluster}执行且自循环2次的region信息，注册入pipeline中
-    status += pipeline->registerGElement<MyNode1>(&e, {c, d_region}, "nodeE", 1);
+    status += pipeline->registerGElement<MyNode1>(&e, {c, d_region }, "nodeE", 1);
     if (!status.isOK()) {
         return;
     }
 
-    status += pipeline->process();
+    //status += pipeline->process();
+    //status += pipeline->perf();
+    pipeline->dump();
+
     GPipelineFactory::remove(pipeline);
 }
 

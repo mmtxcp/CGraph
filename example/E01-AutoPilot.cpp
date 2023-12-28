@@ -11,7 +11,6 @@
 #include <iostream>
 #include <cstring>
 #include <memory>
-
 #include "CGraph.h"
 
 using namespace CGraph;
@@ -24,12 +23,16 @@ static const char* EXAMPLE_PARAM_KEY = "example-param-key";
 
 struct ImageMParam : public GMessageParam {
     int frame_id_ = 0;
-    char image_buf_[DEFAULT_IMAGE_SIZE] = {0};
+    char image_buf_[DEFAULT_IMAGE_SIZE] ;
 
-    explicit ImageMParam() = default;
+    explicit ImageMParam()
+    {
+        std::memset(image_buf_, 0, sizeof(image_buf_));
+    }
 
     ImageMParam(const ImageMParam& param) : GMessageParam(param) {
         this->frame_id_ = param.frame_id_;
+        std::memset(image_buf_, 0, sizeof(image_buf_));
         memcpy(image_buf_, param.image_buf_, DEFAULT_IMAGE_SIZE);
     }
 

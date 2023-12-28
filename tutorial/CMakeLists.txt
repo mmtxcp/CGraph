@@ -28,6 +28,11 @@ set(CGRAPH_TUTORIAL_LIST
         T24-Fence
         T25-Coordinator
         T26-Mutable
+	    TU01-ThreadPool
+	    TU02-Lru
+	    TU03-Trie
+	    TU04-Timer
+	    TU05-Distance
         )
 
 
