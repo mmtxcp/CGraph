@@ -17,6 +17,15 @@ CGRAPH_NAMESPACE_BEGIN
 
 class USpinLock : public UThreadObject {
 public:
+#if defined(_MSC_VER) && _MSC_VER <= 1800
+	// 这部分代码在编译器为 Visual Studio 2013 及以下版本时会被编译
+	// 可以在这里放置只在 VS2013 及以下版本编译器下执行的代码
+    USpinLock()
+    {
+        flag_.clear(); // 初始化标志
+    }
+#endif
+	
     /**
      * 加锁
      */
@@ -43,7 +52,12 @@ public:
     }
 
 private:
+#if defined(_MSC_VER) && _MSC_VER <= 1800
+    std::atomic_flag flag_;
+#else
     std::atomic_flag flag_ = ATOMIC_FLAG_INIT;         // 标志位
+#endif
+   
 };
 
 CGRAPH_NAMESPACE_END

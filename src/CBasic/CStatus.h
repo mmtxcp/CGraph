@@ -13,7 +13,7 @@
 
 #include "CBasicDefine.h"
 #include "CStrDefine.h"
-
+#include "CStdEx.h"
 CGRAPH_NAMESPACE_BEGIN
 CGRAPH_INTERNAL_NAMESPACE_BEGIN
 
@@ -55,7 +55,7 @@ public:
         this->error_locate_ = status.error_locate_;
     }
 
-    CSTATUS(const CSTATUS &&status) noexcept {
+    CSTATUS(const CSTATUS &&status) NOEXCEPT {
         if (status.error_code_ == error_code_) {
             return;
         }

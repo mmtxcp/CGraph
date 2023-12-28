@@ -97,7 +97,7 @@ GElementPtr GElement::setTimeout(CMSec timeout, GElementTimeoutStrategy strategy
 }
 
 
-GElementRef GElement::operator--(int) noexcept {
+GElementRef GElement::operator--(int) NOEXCEPT {
     try {
         this->setVisible(true);
     } catch (const CException& ex) {
@@ -126,7 +126,7 @@ GElementRef GElement::operator&(GElementPtr element) {
 }
 
 
-GElement& GElement::operator*(CSize loop) noexcept {
+GElement& GElement::operator*(CSize loop) NOEXCEPT {
     try {
         this->setLoop(loop);
     } catch (const CException& ex) {

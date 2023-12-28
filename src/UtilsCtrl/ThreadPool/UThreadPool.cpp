@@ -10,7 +10,7 @@
 
 CGRAPH_NAMESPACE_BEGIN
 
-UThreadPool::UThreadPool(CBool autoInit, const UThreadPoolConfig& config) noexcept {
+UThreadPool::UThreadPool(CBool autoInit, const UThreadPoolConfig& config) NOEXCEPT {
     cur_index_ = 0;
     is_init_ = false;
     this->setConfig(config);    // setConfig 函数，用在 is_init_ 设定之后
@@ -86,10 +86,25 @@ CStatus UThreadPool::submit(const UTaskGroup& taskGroup, CMSec ttl) {
     CGRAPH_FUNCTION_BEGIN
     CGRAPH_ASSERT_INIT(true)
 
-    std::vector<std::future<CVoid>> futures;
-    for (const auto& task : taskGroup.task_arr_) {
-        futures.emplace_back(commit(task));
-    }
+#if defined(_MSC_VER) && _MSC_VER <= 1800
+		// 这部分代码在编译器为 Visual Studio 2013 及以上版本时会被编译
+		// 可以在这里放置只在 VS2013 及以下版本编译器下执行的代码
+	std::vector<std::future<bool>> futures;
+	for (const auto& task : taskGroup.task_arr_) {
+		//futures.emplace_back(commit(task));
+		futures.emplace_back(commit(
+			[&task] {
+				task();
+				return true;
+			}));
+	}
+#else
+	std::vector<std::future<CVoid>> futures;
+	for (const auto& task : taskGroup.task_arr_) {
+		futures.emplace_back(commit(task));
+	}
+#endif
+   
 
     // 计算最终运行时间信息
     auto deadline = std::chrono::steady_clock::now()

@@ -103,6 +103,7 @@ CStatus GDynamicEngine::process(GElementPtr element, CBool affinity) {
             cur_status_ = curStatus;
         }
         afterElementRun(element);
+        return true;
     };
 
     if (affinity

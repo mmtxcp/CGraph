@@ -133,10 +133,10 @@ public:
      *  (*b)*2;
      * @return
      */
-    GElement& operator--(int) noexcept;
+    GElement& operator--(int) NOEXCEPT;
     GElement& operator>(GElement* element);
     GElement& operator&(GElement* element);
-    GElement& operator*(CSize loop) noexcept;
+    GElement& operator*(CSize loop) NOEXCEPT;
 
 protected:
     /**

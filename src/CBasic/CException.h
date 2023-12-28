@@ -13,7 +13,7 @@
 #include <exception>
 
 #include "CStrDefine.h"
-
+#include "CStdEx.h"
 CGRAPH_NAMESPACE_BEGIN
 CGRAPH_INTERNAL_NAMESPACE_BEGIN
 
@@ -32,7 +32,7 @@ public:
      * 获取异常信息
      * @return
      */
-    const char* what() const noexcept override {
+    const char* what() const NOEXCEPT override {
         return exception_info_.c_str();
     }
 

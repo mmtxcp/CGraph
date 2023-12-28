@@ -46,11 +46,11 @@ public:
 
     UTask() = default;
 
-    UTask(UTask&& task) noexcept:
+    UTask(UTask&& task) NOEXCEPT:
             impl_(std::move(task.impl_)),
             priority_(task.priority_) {}
 
-    UTask &operator=(UTask&& task) noexcept {
+    UTask &operator=(UTask&& task) NOEXCEPT {
         impl_ = std::move(task.impl_);
         priority_ = task.priority_;
         return *this;

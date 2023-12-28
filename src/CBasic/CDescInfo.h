@@ -46,8 +46,15 @@ public:
      * @param name
      * @return
      */
-    virtual auto setName(const std::string& name)
-    -> decltype(this) {
+#if defined(_MSC_VER) && _MSC_VER <= 1800
+	 // 这部分代码在编译器为 Visual Studio 2013 及以上版本时会被编译
+	 // 可以在这里放置只在 VS2013 及以上版本编译器下执行的代码
+	virtual CDescInfo* setName(const std::string& name)
+#else
+	virtual auto setName(const std::string& name)
+		-> decltype(this)
+#endif
+    {
         name_ = name;
         return this;
     }
@@ -57,8 +64,16 @@ public:
      * @param description
      * @return
      */
-    virtual auto setDescription(const std::string& description)
-    -> decltype(this) {
+
+#if defined(_MSC_VER) && _MSC_VER <= 1800
+		// 这部分代码在编译器为 Visual Studio 2013 及以上版本时会被编译
+		// 可以在这里放置只在 VS2013 及以上版本编译器下执行的代码
+	virtual CDescInfo* setDescription(const std::string& description)
+#else
+	virtual auto setDescription(const std::string& description)
+		-> decltype(this)
+#endif
+    {
         description_ = description;
         return this;
     }

@@ -54,6 +54,7 @@ CStatus GEvent::process(GEventType type, GEventAsyncStrategy strategy) {
             {
                 auto future = thread_pool_->commit([this] {
                     this->trigger(this->param_);
+                    return true;
                 }, CGRAPH_POOL_TASK_STRATEGY);
 
                 /**

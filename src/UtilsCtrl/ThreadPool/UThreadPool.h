@@ -34,7 +34,7 @@ public:
      * @param config
      */
     explicit UThreadPool(CBool autoInit = true,
-                         const UThreadPoolConfig& config = UThreadPoolConfig()) noexcept;
+                         const UThreadPoolConfig& config = UThreadPoolConfig()) NOEXCEPT;
 
     /**
      * 析构函数

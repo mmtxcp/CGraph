@@ -61,6 +61,7 @@ CStatus GSome<TriggerNum>::run()  {
                 left_num_--;
             }
             cv_.notify_one();
+            return true;
         }, CGRAPH_POOL_TASK_STRATEGY);
     }
 

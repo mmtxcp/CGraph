@@ -28,7 +28,7 @@ public:
      */
     explicit UTaskGroup(CGRAPH_DEFAULT_CONST_FUNCTION_REF task,
                         CMSec ttl = CGRAPH_MAX_BLOCK_TTL,
-                        CGRAPH_CALLBACK_CONST_FUNCTION_REF onFinished = nullptr) noexcept {
+                        CGRAPH_CALLBACK_CONST_FUNCTION_REF onFinished = nullptr) NOEXCEPT {
         this->addTask(task)
             ->setTtl(ttl)
             ->setOnFinished(onFinished);

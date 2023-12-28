@@ -54,8 +54,8 @@ private:
 
 private:
     CBool is_init_ { false };                                        // 是否初始化
-    std::vector<std::future<CVoid>> async_run_finish_futures_ {};    // 异步执行的逻辑集合（pipeline run结束的时候）
-    std::vector<std::future<CVoid>> async_destroy_futures_ {};       // 异步执行的逻辑集合（pipeline destroy 的时候）
+    std::vector<std::future<bool>> async_run_finish_futures_ {};    // 异步执行的逻辑集合（pipeline run结束的时候）
+    std::vector<std::future<bool>> async_destroy_futures_ {};       // 异步执行的逻辑集合（pipeline destroy 的时候）
     GEventParamPtr param_ { nullptr };                               // 事件参数信息
 
     friend class GEventManager;

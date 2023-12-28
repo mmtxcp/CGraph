@@ -24,6 +24,14 @@ typename std::unique_ptr<T> c_make_unique(Args&&... args) {
     return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
+
+#if defined(_MSC_VER) && _MSC_VER <= 1800
+// 这部分代码在编译器为 Visual Studio 2013 及以上版本时会被编译
+// 可以在这里放置只在 VS2013 及以上版本编译器下执行的代码
+#define NOEXCEPT 
+#else
+#define NOEXCEPT noexcept
+#endif
 CGRAPH_NAMESPACE_END
 
 #endif //CGRAPH_CSTDEX_H

@@ -23,7 +23,6 @@ using CGRAPH_CSTATUS_CONST_FUNCTION_REF = const std::function<CStatus()>&;
 using CGRAPH_CALLBACK_FUNCTION = std::function<void(CStatus)>;
 using CGRAPH_CALLBACK_CONST_FUNCTION_REF = const std::function<void(CStatus)>&;
 
-
 /**
  * 描述函数类型
  */

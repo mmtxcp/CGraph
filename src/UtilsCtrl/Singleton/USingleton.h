@@ -19,7 +19,7 @@ template<typename T,
         CBool autoInit = false>
 class USingleton : public UtilsObject {
 public:
-    explicit USingleton() noexcept {
+    explicit USingleton() NOEXCEPT {
         if (USingletonType::HUNGRY == type || autoInit) {
             /* 如果是饥汉模式，则直接构造 */
             create();
