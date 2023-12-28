@@ -15,7 +15,7 @@
 
 CGRAPH_NAMESPACE_BEGIN
 
-class GPassedParam : public GParamObject {
+class GPassedParam :virtual public GParamObject {
 public:
     /**
      * 所有的 GPassedParam 类型，内部需要实现一个 clone 方法
