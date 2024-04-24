@@ -145,8 +145,20 @@ inline CVoid CGRAPH_ECHO(const char *cmd, ...) {
     auto now = std::chrono::system_clock::now();
     auto time = std::chrono::system_clock::to_time_t(now);
     auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count() % 1000;
-    std::cout << "[" << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S.")    \
-    << std::setfill('0') << std::setw(3) << ms << "] ";
+    //std::cout << "[" << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S.") << std::setfill('0') << std::setw(3) << ms << "] ";
+#if WIN32
+    // 使用 put_time 函数将时间点转换为可读格式
+    std::cout << "[" << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S.") << std::setfill('0') << std::setw(3) << ms << "] ";
+#elif defined(__linux__)
+#if __cplusplus > 201103L
+   std::cout << "[" << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S.") << std::setfill('0') << std::setw(3) << ms << "] ";
+#else
+    char buffer[80];
+    std::strftime(buffer, 80, "%Y-%m-%d %H:%M:%S", std::localtime(&time));
+    std::string strTime(buffer);
+    std::cout << "[" << strTime << "." << std::setfill('0') << std::setw(3) << ms  << "] ";
+#endif
+#endif
 
     va_list args;
     va_start(args, cmd);

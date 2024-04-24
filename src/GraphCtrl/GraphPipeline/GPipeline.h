@@ -201,15 +201,20 @@ public:
      * @return
      * @notice Android平台NDK R16B 环境不支持 std::initializer_list<> 和 Args... 混用。参考链接：https://github.com/ChunelFeng/CGraph/pull/116
      */
-    template<typename TNode, typename ...Args,
+#if defined(__ANDROID__)  || __cplusplus <= 201103L 
+ template<typename TNode, typename ...Args,
             c_enable_if_t<std::is_base_of<GTemplateNode<Args ...>, TNode>::value, int> = 0>
     CStatus registerGElement(GTemplateNodePtr<Args ...> *elementRef,
-                                  #if defined(__ANDROID__)
                              const GElementPtrSet &dependElements,
-                                  #else
-                             const GElementPtrSet &dependElements = std::initializer_list<GElementPtr>(),
-                                  #endif
                              Args... args);
+#else
+ template<typename TNode, typename ...Args,
+            c_enable_if_t<std::is_base_of<GTemplateNode<Args ...>, TNode>::value, int> = 0>
+    CStatus registerGElement(GTemplateNodePtr<Args ...> *elementRef,
+                             const GElementPtrSet &dependElements = std::initializer_list<GElementPtr>(),
+                             Args... args);
+#endif
+   
 
     /**
      * 注册一个节点信息
